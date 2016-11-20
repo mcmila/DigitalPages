@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Marvelous.Character>
+
+@{
+    ViewBag.Title = "Personagens";
+}
+
+<h2>Personagens</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Nome
+        </th>
+        <th>
+            Descrição
+        </th>
+        <th>
+            Última Atualização
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var personagem in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => personagem.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => personagem.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => personagem.Modified)
+            </td>
+            <td>
+                @Html.ActionLink("Consultar", "Consultar", new {id = personagem.Id})
+            </td>
+        </tr>
+    }
+</table>
+
+@for (int i = ViewBag.PagInicial; i <= ViewBag.PagFinal; i++)
+{
+    if (i == ViewBag.PagAtual)
+    {
+        @Html.Label(i.ToString());
+    }
+    else
+    {
+        <a href="@Url.Action("Index", new { page = i })" class="btn btn-default"> @i.ToString() </a>
+    }
+}

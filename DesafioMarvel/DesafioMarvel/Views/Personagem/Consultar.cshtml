@@ -1,0 +1,91 @@
+﻿@using Marvelous
+@model IEnumerable<Marvelous.Comic>
+
+@{
+    ViewBag.Title = "Consulta do Personagem";
+}
+
+<h3>Consulta do Personagem</h3>
+
+<table class="table">
+    <tr>
+        <th>
+        </th>
+        <th>
+            Nome
+        </th>
+        <th>
+            Descrição
+        </th>
+
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            <img src="@Url.Content(ViewBag.ImageUrl)" alt="Image" />
+        </td>
+        <td>
+            @Html.Raw(ViewBag.Name)
+        </td>
+        <td>
+            @Html.Raw(ViewBag.Description)
+        </td>
+    </tr>
+</table>
+
+@if (Model != null && Model.Count() > 0)
+{
+    <h2>Comics</h2>
+
+    <table class="table">
+        <tr>
+            <th>
+            </th>
+            <th>
+                Título
+            </th>
+            <th>
+                Número de Capa
+            </th>
+            <th>
+                Descrição
+            </th>
+        </tr>
+
+        @foreach (var comic in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@Url.Content(comic.Thumbnail.ToString(Image.PortraitSmall))" alt="Image" />
+                </td>
+                <td>
+                    @Html.DisplayTextFor(comics => comic.Title)
+                </td>
+                <td>
+                    @Html.DisplayTextFor(comics => comic.IssueNumber)
+                </td>
+                <td>
+                    @Html.DisplayTextFor(comics => comic.Description)
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+@for (int i = ViewBag.PagInicial; i <= ViewBag.PagFinal; i++)
+{
+    if (i == ViewBag.PagAtual)
+    {
+        @Html.Label(i.ToString());
+    }
+    else
+    {
+        <a href="@Url.Action("Consultar", new { id = ViewBag.Id, page = i })" class="btn btn-default"> @i.ToString() </a>
+    }
+}
+
+<br>
+<br>
+<p>
+    @Html.ActionLink("Voltar", "Index")
+</p>

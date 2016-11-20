@@ -1,0 +1,19 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Erro";
+}
+
+<div>
+    <div style=" padding:20px;">
+        <h3>
+            Erro:
+        </h3>
+        <h4>
+            Desculpe, mas ocorreu um erro durante a requisição
+        </h4>
+        <h6>@Html.ActionLink("Voltar", "Index", "Home")</h6>
+        <br />
+        <br />
+    </div>
+</div>
